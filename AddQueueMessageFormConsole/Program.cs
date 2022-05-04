@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Text;
-using System.Threading.Tasks;
 using CloudeStorageAccount = Microsoft.WindowsAzure.Storage.CloudStorageAccount;
 using Microsoft.WindowsAzure.Storage.Queue;
 
@@ -17,14 +15,15 @@ namespace AddQueueMessageFormConsole
         }
 
         public static void AddMessage()
+        
         {
             Console.WriteLine("Write Some message for add in Queue -");
-            string msg = Console.ReadLine();
+            string msg = Console.ReadLine();            
             CloudeStorageAccount cls = CloudeStorageAccount.Parse(ConnectionString);
             CloudQueueClient queueClient = cls.CreateCloudQueueClient();
             CloudQueue cloudQueue = queueClient.GetQueueReference("task-1");
             CloudQueueMessage queueMessage = new CloudQueueMessage(msg);
-            if (queueMessage != null)
+            if (queueMessage.AsString.Length > 0)
             {
                 cloudQueue.AddMessage(queueMessage);
                 Console.WriteLine("Message Add Successfully!!");
